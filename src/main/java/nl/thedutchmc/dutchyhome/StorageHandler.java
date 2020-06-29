@@ -46,11 +46,10 @@ public class StorageHandler {
 	
 	public static void readStorage() {
 		List<String> homes = storage.getStringList("homes");
+		Home.homes.clear();
 		
 		for(String str : homes) {
 			String[] strParts = str.split(":");
-			
-			Home.homes.clear();
 			
 			Home.homes.put(UUID.fromString(strParts[0]), new Location(Bukkit.getWorld(strParts[4]), Double.valueOf(strParts[1]), Double.valueOf(strParts[2]), Double.valueOf(strParts[3])));
 		}
