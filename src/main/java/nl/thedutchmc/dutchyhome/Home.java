@@ -26,6 +26,18 @@ public class Home extends JavaPlugin {
 		}.runTaskLater(this, 5);
 		
 		getCommand("home").setExecutor(new CommandHandler());
-		getCommand("sethome").setExecutor(new CommandHandler());	
+		getCommand("sethome").setExecutor(new CommandHandler());
+		
+		
+		new BukkitRunnable() {
+		
+			@Override
+			public void run() {
+				
+				StorageHandler.readStorage();
+				
+			}
+		}.runTaskTimerAsynchronously(plugin, 20, 50*60*20);
+		
 	}
 }
