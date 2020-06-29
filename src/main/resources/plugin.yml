@@ -1,0 +1,11 @@
+name: DutchyHome
+main: nl.thedutchmc.dutchyhome.Home
+version: 1.0.1
+api-version: 1.16
+author: TheDutchMC
+description: Homes!
+commands:
+ home:
+  description: Go to your home
+ sethome:
+  description: Set a home
