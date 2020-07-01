@@ -1,5 +1,6 @@
 package nl.thedutchmc.dutchyhome;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,6 +18,9 @@ public class CommandHandler implements CommandExecutor {
 			Player senderP = (Player) sender;
 			
 			if(Home.homes.containsKey(senderP.getUniqueId())) {
+				
+				SuccessfulHomeTeleportEvent event = new SuccessfulHomeTeleportEvent(senderP, senderP.getLocation());
+				Bukkit.getPluginManager().callEvent(event);
 				
 				sender.sendMessage(ChatColor.GOLD + "Teleporting...");
 				senderP.teleport(Home.homes.get(senderP.getUniqueId()));
