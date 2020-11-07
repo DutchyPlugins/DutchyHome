@@ -2,6 +2,7 @@ package nl.thedutchmc.dutchyhome;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,23 +50,35 @@ public class StorageHandler {
 		Home.homes.clear();
 		
 		for(String str : homes) {
-			String[] strParts = str.split(":");
+			String[] strParts = str.split("<==>");
 			
-			Home.homes.put(UUID.fromString(strParts[0]), new Location(Bukkit.getWorld(strParts[4]), Double.valueOf(strParts[1]), Double.valueOf(strParts[2]), Double.valueOf(strParts[3])));
+			HomeObject home = new HomeObject(UUID.fromString(strParts[0]), strParts[1], new Location(Bukkit.getWorld(strParts[5]), Double.valueOf(strParts[2]), Double.valueOf(strParts[3]), Double.valueOf(strParts[4])));
+			Home.homes.add(home);
 		}
 	}
 	
-	public static void writeHome(UUID uuid, Location loc) {
+	public static void writeHome(HomeObject homeObj) {
 		List<String> homes = storage.getStringList("homes");
 		
-		String home = uuid.toString() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getWorld().getName();
+		//Format:
+		// OwnerUUID : HomeName : X : Y : Z : WorldName
+		
+		Location loc = homeObj.getLocation();
+		UUID uuid = homeObj.getOwner();
+		String name = homeObj.getName();
+		
+		System.out.println(uuid);
+		
+		String home = String.valueOf(uuid) + "<==>" + name + "<==>" + loc.getX() + "<==>" + loc.getY() + "<==>" + loc.getZ() + "<==>" + loc.getWorld().getName();
 		
 		boolean alreadyInList = false;
 		int inListIndex = 0;
 		for(int i = 0; i < homes.size(); i++) {
-			UUID homeUuid = UUID.fromString(homes.get(i).split(":")[0]);
+			String[] parts = homes.get(i).split("<==>");
+			UUID homeUuid = UUID.fromString(parts[0]);
+			String homeName = parts[1];
 			
-			if(homeUuid.equals(uuid)) {
+			if(homeUuid.equals(uuid) && homeName.equals(name)) {
 				alreadyInList = true;
 				inListIndex = i;
 			}
@@ -78,6 +91,24 @@ public class StorageHandler {
 		}
 		
 		storage.set("homes", homes);
+		
+		try {
+			storage.save(storageFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void homeDeleted() {
+		List<String> homesSerialized = new ArrayList<>();
+		
+		for(HomeObject home : Home.homes) {
+			Location loc = home.getLocation();
+			String homeSerialized = String.valueOf(home.getOwner()) + "<==>" + home.getName() + "<==>" + loc.getX() + "<==>" + loc.getY() + "<==>" + loc.getZ() + "<==>" + loc.getWorld().getName();
+			homesSerialized.add(homeSerialized);
+		}
+		
+		storage.set("homes", homesSerialized);
 		
 		try {
 			storage.save(storageFile);

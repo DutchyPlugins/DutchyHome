@@ -1,9 +1,10 @@
 plugins {
     id 'java'
     id 'maven-publish'
+	id 'eclipse'
 }
 
-version = '1.16_1.1.0'
+version = '1.16_1.2.0'
 
 repositories {
     jcenter()
@@ -27,7 +28,7 @@ publishing {
 		maven(MavenPublication) {
 			groupId 'nl.thedutchmc'
 			artifactId 'dutchyhome'
-			version '1.1.0'
+			version '1.2.0'
 			
 			from components.java
 		}
