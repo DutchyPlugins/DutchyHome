@@ -20,11 +20,25 @@ repositories {
 	jcenter()
     maven{ url "https://hub.spigotmc.org/nexus/content/repositories/snapshots" }
     maven{ url "https://oss.sonatype.org/content/repositories/snapshots" }
+	maven { url 'https://jitpack.io' }   	 	        
     mavenLocal()
 }
 
 dependencies {
-    compileOnly 'nl.thedutchmc:dutchycore:0.0.15'
+    //Dev only:
+    //compileOnly 'nl.thedutchmc:dutchycore:0.0.15'
+    //bug in jitpack, cant use nl.thedutchmc here :/
+    compileOnly 'com.github.DutchyPlugins:Dutchycore:0.0.15-R2'
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
 }
 
+task ghActions(type: Jar) {
+	description 'GitHub Actions task. Not used for regular development'
+	version = ''
+	archiveClassifier = ''
+	archiveBaseName = 'output'
+
+	from sourceSets.main.output
+
+	destinationDirectory = file("$rootDir/actions")
+}
