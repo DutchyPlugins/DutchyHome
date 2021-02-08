@@ -28,7 +28,7 @@ dependencies {
     //Dev only:
     //compileOnly 'nl.thedutchmc:dutchycore:0.0.15'
     //bug in jitpack, cant use nl.thedutchmc here :/
-    compileOnly 'com.github.DutchyPlugins:Dutchycore:0.0.15-R2'
+    compileOnly 'com.github.DutchyPlugins:Dutchycore:0.0.15-R3'
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
 }
 
