@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import org.bukkit.Location;
 
-import nl.thedutchmc.dutchycore.module.annotations.Nullable;
+import nl.thedutchmc.dutchycore.annotations.Nullable;
 
 public class PlayerHomes {
 

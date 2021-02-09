@@ -76,7 +76,7 @@ public class SetHomeCommandExecutor implements ModuleCommand {
 			
 			//Verify that the amount is an integer
 			if(!Utils.verifyPositiveInteger(parts[parts.length -1])) {
-				sender.sendMessage("Please contact your server administrator. They have made a mistake with permissions for DutchyHome!");
+				sender.sendMessage(ChatColor.RED + "Please contact your server administrator. They have made a mistake with permissions for DutchyHome!");
 				return true;
 			}
 
@@ -98,7 +98,7 @@ public class SetHomeCommandExecutor implements ModuleCommand {
 		//Check if the player has reached the home limit
 		int amountOfHomes = playerHomes.getAllHomes().size();
 		if(amountOfHomes >= maxHomes) {
-			sender.sendMessage("You have reached the limit of homes you can set! Remove a home before setting a new one.");
+			sender.sendMessage(ChatColor.RED + "You have reached the limit of homes you can set! Remove a home before setting a new one.");
 			return true;
 		}
 		
@@ -120,7 +120,7 @@ public class SetHomeCommandExecutor implements ModuleCommand {
 		
 		//Send the message to the player
 		String message = "Set home %s at %d, %d, %d!";
-		message = Utils.processColours(message, 
+		message = Utils.processColours(ChatColor.GOLD + message, 
 				new Triple<String, ChatColor, ChatColor>("%s", ChatColor.RED, ChatColor.GOLD), 
 				new Triple<String, ChatColor, ChatColor>("%d", ChatColor.RED, ChatColor.GOLD));
 		sender.sendMessage(String.format(message, homeName, playerCurrentLoc.getBlockX(), playerCurrentLoc.getBlockY(), playerCurrentLoc.getBlockZ()));

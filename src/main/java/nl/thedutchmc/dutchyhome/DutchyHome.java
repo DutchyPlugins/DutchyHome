@@ -12,17 +12,19 @@ import org.bukkit.Location;
 import org.bukkit.permissions.PermissionDefault;
 import nl.thedutchmc.dutchycore.DutchyCore;
 import nl.thedutchmc.dutchycore.module.PluginModule;
-import nl.thedutchmc.dutchycore.module.annotations.Nullable;
+import nl.thedutchmc.dutchycore.annotations.Nullable;
 import nl.thedutchmc.dutchycore.module.file.ModuleFileHandler;
 import nl.thedutchmc.dutchycore.module.file.ModuleStorage;
 import nl.thedutchmc.dutchyhome.commands.DelHomeCommandExecutor;
 import nl.thedutchmc.dutchyhome.commands.HomeCommandExecutor;
 import nl.thedutchmc.dutchyhome.commands.HomesCommandExecutor;
 import nl.thedutchmc.dutchyhome.commands.SetHomeCommandExecutor;
+import nl.thedutchmc.dutchyhome.listeners.PlayerTransferEventListener;
 import nl.thedutchmc.dutchyhome.tabcompleters.DelHomeCommandCompleter;
 import nl.thedutchmc.dutchyhome.tabcompleters.HomeCommandCompleter;
 import nl.thedutchmc.dutchyhome.tabcompleters.HomesCommandCompleter;
 import nl.thedutchmc.dutchyhome.tabcompleters.SetHomeCommandCompleter;
+import nl.thedutchmc.offlineplayers.events.PlayerTransferEvent;
 
 public class DutchyHome extends PluginModule {
 	
@@ -130,6 +132,15 @@ public class DutchyHome extends PluginModule {
 		super.logInfo("Initialization complete!");
 	}
 	
+	@Override
+	public void postEnable() {
+		//Register event listeners
+		if(super.isModuleRegistered("OfflinePlayers")) {
+			super.logInfo("OfflinePlayers is installed. Enabling listener!");
+			super.registerModuleEventListener(new PlayerTransferEventListener(this), PlayerTransferEvent.class);
+		}
+	}
+	
 	/**
 	 * Write a home to disk
 	 * @param homeName The name of the home
@@ -198,5 +209,13 @@ public class DutchyHome extends PluginModule {
 	 */
 	public void setPlayerHome(UUID uuid, PlayerHomes playerHomes) {
 		this.playerHomes.put(uuid, playerHomes);
+	}
+	
+	/**
+	 * Remove a PlayerHomes for a player
+	 * @param uuid The UUID of the player
+	 */
+	public void delPlayerHome(UUID uuid) {
+		this.playerHomes.remove(uuid);
 	}
 }
