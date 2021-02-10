@@ -10,7 +10,7 @@ import nl.thedutchmc.dutchyhome.PlayerHomes;
 
 /**
  * Handles execution for:
- * <pre> /delhome <home name> </pre>
+ * <pre> /delhome &lt;home name&gt; </pre>
  */
 public class DelHomeCommandExecutor implements ModuleCommand {
 

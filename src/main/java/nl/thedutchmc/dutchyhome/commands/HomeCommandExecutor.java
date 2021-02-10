@@ -10,10 +10,11 @@ import org.bukkit.entity.Player;
 import nl.thedutchmc.dutchycore.module.commands.ModuleCommand;
 import nl.thedutchmc.dutchyhome.DutchyHome;
 import nl.thedutchmc.dutchyhome.PlayerHomes;
+import nl.thedutchmc.dutchyhome.events.HomeTeleportEvent;
 
 /**
  * Provides execution for:
- * <pre> /home <homename> </pre>
+ * <pre> /home &lt;homename&gt; </pre>
  */
 public class HomeCommandExecutor implements ModuleCommand {
 
@@ -66,8 +67,15 @@ public class HomeCommandExecutor implements ModuleCommand {
 			return true;
 		}
 		
+		Player player = (Player) sender;
+		Location preTeleportLocation = player.getLocation();
+		
 		//Teleport the player
-		((Player) sender).teleport(home);
+		player.teleport(home);
+		
+		//Fire HomeTeleportEvent
+		this.module.throwModuleEvent(new HomeTeleportEvent(player, preTeleportLocation, home));
+		
 		sender.sendMessage(ChatColor.GOLD + "Teleporting...");
 		
 		return true;

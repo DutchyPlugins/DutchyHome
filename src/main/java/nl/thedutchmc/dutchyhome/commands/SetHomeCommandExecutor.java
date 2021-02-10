@@ -16,7 +16,7 @@ import nl.thedutchmc.dutchyhome.PlayerHomes;
 
 /**
  * Handles execution for:
- * <pre> /sethome <name> </pre>
+ * <pre> /sethome &lt;name&gt; </pre>
  *
  */
 public class SetHomeCommandExecutor implements ModuleCommand {

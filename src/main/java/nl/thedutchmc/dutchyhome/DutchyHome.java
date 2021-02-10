@@ -24,7 +24,6 @@ import nl.thedutchmc.dutchyhome.tabcompleters.DelHomeCommandCompleter;
 import nl.thedutchmc.dutchyhome.tabcompleters.HomeCommandCompleter;
 import nl.thedutchmc.dutchyhome.tabcompleters.HomesCommandCompleter;
 import nl.thedutchmc.dutchyhome.tabcompleters.SetHomeCommandCompleter;
-import nl.thedutchmc.offlineplayers.events.PlayerTransferEvent;
 
 public class DutchyHome extends PluginModule {
 	
@@ -137,7 +136,7 @@ public class DutchyHome extends PluginModule {
 		//Register event listeners
 		if(super.isModuleRegistered("OfflinePlayers")) {
 			super.logInfo("OfflinePlayers is installed. Enabling listener!");
-			super.registerModuleEventListener(new PlayerTransferEventListener(this), PlayerTransferEvent.class);
+			super.registerModuleEventListener(new PlayerTransferEventListener(this));
 		}
 	}
 	

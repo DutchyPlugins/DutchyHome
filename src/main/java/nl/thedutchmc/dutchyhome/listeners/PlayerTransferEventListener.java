@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.bukkit.Location;
 
-import nl.thedutchmc.dutchycore.module.events.ModuleEvent;
+import nl.thedutchmc.dutchycore.annotations.EventHandler;
 import nl.thedutchmc.dutchycore.module.events.ModuleEventListener;
 import nl.thedutchmc.dutchyhome.DutchyHome;
 import nl.thedutchmc.dutchyhome.PlayerHomes;
@@ -18,14 +18,13 @@ public class PlayerTransferEventListener implements ModuleEventListener {
 		this.module = module;
 	}
 
-	@Override
-	public void onEvent(ModuleEvent event) {
-		PlayerTransferEvent pte = (PlayerTransferEvent) event;
+	@EventHandler
+	public void onPlayerTransferEvent(PlayerTransferEvent event) {
 				
-		PlayerHomes playerHomesOld = this.module.getPlayerHomes(pte.getOldUUID());
+		PlayerHomes playerHomesOld = this.module.getPlayerHomes(event.getOldUUID());
 		
 		//Create a new PlayerHoems object
-		PlayerHomes playerHomesNew = new PlayerHomes(pte.getNewUUID());
+		PlayerHomes playerHomesNew = new PlayerHomes(event.getNewUUID());
 		
 		//Add all h omes from the playerHomesOld to the playerHomesNew
 		for(Map.Entry<String, Location> entry : playerHomesOld.getAllHomes().entrySet()) {
@@ -33,8 +32,8 @@ public class PlayerTransferEventListener implements ModuleEventListener {
 		}
 		
 		//Set the new PlayerHomes, and remove the old
-		this.module.setPlayerHome(pte.getNewUUID(), playerHomesNew);
-		this.module.delPlayerHome(pte.getOldUUID());
+		this.module.setPlayerHome(event.getNewUUID(), playerHomesNew);
+		this.module.delPlayerHome(event.getOldUUID());
 		
 		//Write memory to disk
 		this.module.writeMemory();
