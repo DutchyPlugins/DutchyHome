@@ -1,11 +1,11 @@
-package nl.thedutchmc.dutchyhome;
+package dev.array21.dutchyhome;
 
 import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Location;
 
-import nl.thedutchmc.dutchycore.annotations.Nullable;
+import dev.array21.dutchycore.annotations.Nullable;
 
 public class PlayerHomes {
 

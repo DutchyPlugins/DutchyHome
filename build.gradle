@@ -3,45 +3,41 @@ import org.apache.tools.ant.filters.ReplaceTokens
 plugins {
     id 'java'
     id 'eclipse'
-    id 'maven-publish'              
+    id 'maven-publish'
+    id 'signing'              
 }
 
-version = '2.1.2'
-group = 'nl.thedutchmc'
+version = '2.2.0'
+group = 'dev.array21'
 
-sourceCompatibility = 1.11
-targetCompatibility = 1.11
+sourceCompatibility = 1.16
+targetCompatibility = 1.16
 
-processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        filter ReplaceTokens, tokens: [version: version]
-    }
+task processSource(type: Sync) {
+	from sourceSets.main.java
+	inputs.property 'version', version
+	filter(ReplaceTokens, tokens: [VERSION: version])
+	into "$buildDir/src" 
 }
 
-java {
-    withSourcesJar()
-    withJavadocJar()
+compileJava {
+	source = processSource.outputs
 }
 
 repositories {
-	jcenter()
+	mavenCentral()
     maven{ url "https://hub.spigotmc.org/nexus/content/repositories/snapshots" }
     maven{ url "https://oss.sonatype.org/content/repositories/snapshots" }
-	maven { url 'https://jitpack.io' }
-    mavenLocal()
+	maven{ url 'https://jitpack.io' }
+	mavenLocal()
 }
 
 dependencies {
-    //Dev only:
-    //compileOnly 'nl.thedutchmc:dutchycore:0.0.47'
-    //compileOnly 'nl.thedutchmc:offlineplayers:1.1.0'
-    
-    //bug in jitpack, cant use nl.thedutchmc here :/
-    compileOnly 'com.github.DutchyPlugins:DutchyCore:0.0.47'
-    compileOnly 'com.github.DutchyPlugins:OfflinePlayers:1.1.1'
-    
+    compileOnly 'dev.array21:dutchycore:0.1.0'
+	compileOnly 'dev.array21:offlineplayers:1.2.0'
+	    
     //Spigot API
-    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
 }
 
 task ghActions(type: Jar) {
@@ -55,25 +51,80 @@ task ghActions(type: Jar) {
 	destinationDirectory = file("$rootDir/actions")
 }
 
+task testJar(type: Jar) {
+	description 'Build a test Jar'
+	archiveClassifier = 'DEV'
+	from sourceSets.main.output
+	destinationDirectory = file("$rootDir/../DutchyCore/server/plugins/DutchyCore/modules/")
+}
+
+javadoc.options.addStringOption('Xdoclint:none', '-quiet')
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
 publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			artifactId = 'dutchyhome'
-			from components.java
-			
-			pom {
-				name = 'DutchyHome'
-				description = 'DutchyHome plugin'
-				url = 'https://thedutchmc.nl'
-				
-				developers {
-					developer {
-						id = 'thedutchmc'
-						name = 'Tobias de Bruijn'
-						email = 't.debruijn@thedutchmc.nl'
-					}	
-				}
-			}	
+	repositories {
+		maven {
+			name = "ossrh"
+			url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+			credentials {
+				username = findProperty('ossrhUsername')
+				password = findProperty('ossrhPassword')
+			}
 		}
 	}
+
+	publications {
+    	mavenJava(MavenPublication) {
+      		from components.java
+      		artifact sourcesJar
+      		artifact javadocJar
+      		
+			pom {
+		    	name = 'DutchyHome'
+		    	artifactId = 'dutchyhome'
+		    	packaging = 'jar'
+		    	description = 'Minecraft Spigot Home Plugin'
+		    	url = 'https://github.com/DutchyPlugins/DutchyHome'
+			
+				scm {
+					connection = 'scm:git:git://github.com/DutchyPlugins/DutchyHome.git'
+					developerConnection = 'scm:git:ssh://github.com/DutchyPlugins/DutchyHome.git'
+					url = 'https://github.com/DutchyPlugins/DutchyHome'
+				}
+		
+		    	licenses {
+		      		license {
+		        		name = 'GPL-v3'
+		        		url = 'https://github.com/DutchyPlugins/DutchyHome/blob/master/LICENSE'
+		      		}
+	    		}
+		
+		    	developers {
+		      		developer {
+		        		id = 'tobiasdebruijn'
+		        		name = 'Tobias de Bruijn'
+		        		email = 't.debruijn@array21.dev'
+		      		}
+		    	}
+		    }
+    	}
+	}
+}
+
+signing {
+	if(!System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+	    sign publishing.publications.mavenJava
+	}}
+
+processResources  {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }

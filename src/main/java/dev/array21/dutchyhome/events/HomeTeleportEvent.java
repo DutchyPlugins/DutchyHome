@@ -1,9 +1,9 @@
-package nl.thedutchmc.dutchyhome.events;
+package dev.array21.dutchyhome.events;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import nl.thedutchmc.dutchycore.module.events.ModuleEvent;
+import dev.array21.dutchycore.module.events.ModuleEvent;
 
 public class HomeTeleportEvent extends ModuleEvent {
 

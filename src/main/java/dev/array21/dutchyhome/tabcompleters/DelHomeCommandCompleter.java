@@ -1,23 +1,22 @@
-package nl.thedutchmc.dutchyhome.tabcompleters;
+package dev.array21.dutchyhome.tabcompleters;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import nl.thedutchmc.dutchycore.module.commands.ModuleTabCompleter;
-import nl.thedutchmc.dutchyhome.DutchyHome;
-import nl.thedutchmc.dutchyhome.PlayerHomes;
+import dev.array21.dutchycore.module.commands.ModuleTabCompleter;
+import dev.array21.dutchyhome.DutchyHome;
+import dev.array21.dutchyhome.PlayerHomes;
 
-public class HomeCommandCompleter implements ModuleTabCompleter {
+public class DelHomeCommandCompleter implements ModuleTabCompleter {
 
 	DutchyHome module;
 	
-	public HomeCommandCompleter(DutchyHome module) {
+	public DelHomeCommandCompleter(DutchyHome module) {
 		this.module = module;
 	}
 	
 	@Override
 	public String[] complete(CommandSender sender, String[] args) {
-		
 		//Check if the sender is a player
 		if(!(sender instanceof Player)) {
 			return null;

@@ -1,4 +1,4 @@
-package nl.thedutchmc.dutchyhome.commands;
+package dev.array21.dutchyhome.commands;
 
 import java.util.regex.Pattern;
 
@@ -8,11 +8,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
-import nl.thedutchmc.dutchycore.Triple;
-import nl.thedutchmc.dutchycore.module.commands.ModuleCommand;
-import nl.thedutchmc.dutchycore.utils.Utils;
-import nl.thedutchmc.dutchyhome.DutchyHome;
-import nl.thedutchmc.dutchyhome.PlayerHomes;
+import dev.array21.dutchycore.Triple;
+import dev.array21.dutchycore.module.commands.ModuleCommand;
+import dev.array21.dutchycore.utils.Utils;
+import dev.array21.dutchyhome.DutchyHome;
+import dev.array21.dutchyhome.PlayerHomes;
 
 /**
  * Handles execution for:

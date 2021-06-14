@@ -1,14 +1,14 @@
-package nl.thedutchmc.dutchyhome.listeners;
+package dev.array21.dutchyhome.listeners;
 
 import java.util.Map;
 
 import org.bukkit.Location;
 
-import nl.thedutchmc.dutchycore.annotations.EventHandler;
-import nl.thedutchmc.dutchycore.module.events.ModuleEventListener;
-import nl.thedutchmc.dutchyhome.DutchyHome;
-import nl.thedutchmc.dutchyhome.PlayerHomes;
-import nl.thedutchmc.offlineplayers.events.PlayerTransferEvent;
+import dev.array21.dutchycore.annotations.EventHandler;
+import dev.array21.dutchycore.module.events.ModuleEventListener;
+import dev.array21.dutchyhome.DutchyHome;
+import dev.array21.dutchyhome.PlayerHomes;
+import dev.array21.offlineplayers.events.PlayerTransferEvent;
 
 public class PlayerTransferEventListener implements ModuleEventListener {
 

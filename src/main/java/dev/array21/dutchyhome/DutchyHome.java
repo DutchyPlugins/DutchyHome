@@ -1,4 +1,4 @@
-package nl.thedutchmc.dutchyhome;
+package dev.array21.dutchyhome;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,21 +10,23 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.permissions.PermissionDefault;
-import nl.thedutchmc.dutchycore.DutchyCore;
-import nl.thedutchmc.dutchycore.module.PluginModule;
-import nl.thedutchmc.dutchycore.annotations.Nullable;
-import nl.thedutchmc.dutchycore.module.file.ModuleFileHandler;
-import nl.thedutchmc.dutchycore.module.file.ModuleStorage;
-import nl.thedutchmc.dutchyhome.commands.DelHomeCommandExecutor;
-import nl.thedutchmc.dutchyhome.commands.HomeCommandExecutor;
-import nl.thedutchmc.dutchyhome.commands.HomesCommandExecutor;
-import nl.thedutchmc.dutchyhome.commands.SetHomeCommandExecutor;
-import nl.thedutchmc.dutchyhome.listeners.PlayerTransferEventListener;
-import nl.thedutchmc.dutchyhome.tabcompleters.DelHomeCommandCompleter;
-import nl.thedutchmc.dutchyhome.tabcompleters.HomeCommandCompleter;
-import nl.thedutchmc.dutchyhome.tabcompleters.HomesCommandCompleter;
-import nl.thedutchmc.dutchyhome.tabcompleters.SetHomeCommandCompleter;
+import dev.array21.dutchycore.DutchyCore;
+import dev.array21.dutchycore.module.PluginModule;
+import dev.array21.dutchycore.annotations.Nullable;
+import dev.array21.dutchycore.annotations.RegisterModule;
+import dev.array21.dutchycore.module.file.ModuleFileHandler;
+import dev.array21.dutchycore.module.file.ModuleStorage;
+import dev.array21.dutchyhome.commands.DelHomeCommandExecutor;
+import dev.array21.dutchyhome.commands.HomeCommandExecutor;
+import dev.array21.dutchyhome.commands.HomesCommandExecutor;
+import dev.array21.dutchyhome.commands.SetHomeCommandExecutor;
+import dev.array21.dutchyhome.listeners.PlayerTransferEventListener;
+import dev.array21.dutchyhome.tabcompleters.DelHomeCommandCompleter;
+import dev.array21.dutchyhome.tabcompleters.HomeCommandCompleter;
+import dev.array21.dutchyhome.tabcompleters.HomesCommandCompleter;
+import dev.array21.dutchyhome.tabcompleters.SetHomeCommandCompleter;
 
+@RegisterModule(name = "DutchyHome", version = "@VERSION@", author = "Dutchy76", infoUrl = "https://github.com/DutchyPlugins/DutchyHome")
 public class DutchyHome extends PluginModule {
 	
 	private HashMap<UUID, PlayerHomes> playerHomes = new HashMap<>();

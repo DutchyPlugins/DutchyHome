@@ -1,12 +1,12 @@
-package nl.thedutchmc.dutchyhome.commands;
+package dev.array21.dutchyhome.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import nl.thedutchmc.dutchycore.module.commands.ModuleCommand;
-import nl.thedutchmc.dutchyhome.DutchyHome;
-import nl.thedutchmc.dutchyhome.PlayerHomes;
+import dev.array21.dutchycore.module.commands.ModuleCommand;
+import dev.array21.dutchyhome.DutchyHome;
+import dev.array21.dutchyhome.PlayerHomes;
 
 /**
  * Handles execution for:
